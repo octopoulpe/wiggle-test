@@ -1,0 +1,17 @@
+{
+  "nonew": true,
+  "curly": true,
+  "unused": true,
+  "noarg": true,
+  "forin": true,
+  "eqeqeq": true,
+  "strict": true,
+  "undef": true,
+  "bitwise": false,
+  "browser": true,
+  "devel": true,
+  "browserify": true,
+  "nonbsp": true,
+  "shadow": "inner",
+  "predef": []
+}

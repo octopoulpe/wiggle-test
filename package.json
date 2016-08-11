@@ -1,0 +1,30 @@
+{
+  "name": "wiggle-test",
+  "version": "0.0.1",
+  "description": "Test application for WigGLe toolkit",
+  "repository": {
+    "type": "git",
+    "url": "https://bitbucket.org/poulpe/wiggle-test.git"
+  },
+  "author": "poulpe",
+  "license": "SEE LICENSE IN LICENSE",
+  "browser": {
+    "wiggle": "wiggle"
+  },
+  "devDependencies": {
+    "browserify": "^13.0.0",
+    "gulp": "^3.9.1",
+    "gulp-stylus": "^2.3.1",
+    "gulp-uglify": "^1.5.3",
+    "merge-stream": "^1.0.0",
+    "stringify": "^5.1.0",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.7.0",
+    "gulp-util": "^3.0.7",
+    "gulp-webserver": "^0.9.1"
+  },
+  "dependencies": {
+    "wiggle": "0.0.1"
+  }
+}
