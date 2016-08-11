@@ -1,6 +1,6 @@
 {
   "name": "wiggle-test",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Test application for WigGLe toolkit",
   "repository": {
     "type": "git",
@@ -25,6 +25,6 @@
     "gulp-webserver": "^0.9.1"
   },
   "dependencies": {
-    "wiggle": "0.0.1"
+    "wiggle": "0.0.2"
   }
 }
