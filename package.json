@@ -7,7 +7,7 @@
     "url": "https://bitbucket.org/poulpe/wiggle-test.git"
   },
   "author": "poulpe",
-  "license": "SEE LICENSE IN LICENSE",
+  "license": "MIT",
   "browser": {
     "wiggle": "wiggle"
   },
