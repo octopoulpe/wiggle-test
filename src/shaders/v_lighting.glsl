@@ -1,11 +1,20 @@
-attribute vec2 aVertexPosition;
-attribute vec2 aTextureCoord;
+#version 300 es
 
-varying vec2 vTextureCoord;
+in vec2 aVertexPosition;
+in vec3 aVertexColor;
+in vec2 aTextureCoord;
 
-uniform mat4 uPMatrix;
+out vec3 vColor;
+out float vIntensity;
+out vec2 vTextureCoord;
+
+uniform mat4 uProjMat;
+uniform mat4 uViewMat;
+uniform vec2 uPlayerPos;
 
 void main(void) {
-    gl_Position = uPMatrix * vec4(aVertexPosition, 0.0, 1.0);
+    gl_Position = uProjMat * uViewMat * vec4(aVertexPosition, 0.0, 1.0);
+    vColor = aVertexColor;
     vTextureCoord = aTextureCoord;
+    vIntensity = 1.0 / (distance(aVertexPosition, uPlayerPos) + 1.0);
 }
