@@ -1,6 +1,7 @@
 'use strict';
 
 var wiggle = require('wiggle');
+var graph = wiggle.graph;
 
 var App2 = function () {
     this.context = new wiggle.context.Context('appcanvas');
@@ -14,11 +15,27 @@ App2.prototype.setup = function () {
 
     var shader = new wiggle.Shader();
     shader.init(
-        require('./shaders/v_lighting.glsl'),
+        require('./shaders/v_pvm.glsl'),
         require('./shaders/f_lighting.glsl')
     );
     shader.use();
     this.shader = shader;
+
+    this.nodeA = new graph.GraphNode(new graph.Transform());
+    this.nodeAA = new graph.GraphNode(new graph.Transform());
+    this.nodeAA.parent = this.nodeA;
+    this.nodeAAA = new graph.GraphNode(new graph.Transform());
+    this.nodeAAA.parent = this.nodeAA;
+    this.nodeAB = new graph.GraphNode(new graph.Transform());
+    this.nodeAB.parent = this.nodeA;
+    this.nodeABA = new graph.GraphNode(new graph.Transform());
+    this.nodeABA.parent = this.nodeAB;
+
+    this.nodeA.transform.tX = 1;
+    this.nodeAA.transform.tY = 1;
+    this.nodeAAA.transform.tX = 1;
+    this.nodeAB.transform.rZ = 0.5;
+    this.nodeABA.transform.tX = 1;
 
     var projection = new wiggle.Projection('uProjMat');
     this.projection = projection;
@@ -97,7 +114,13 @@ App2.prototype.draw = function () {
         console.log('moving');
         this.camera.node.transform.tY += 0.01;
         this.camera.node.transform.refresh();
+        this.nodeABA.parent = this.nodeAA;
+    } else {
+        this.nodeABA.parent = this.nodeAB;
     }
+    this.nodeAB.transform.rZ += 0.001;
+    this.nodeABA.transform.rZ += 0.001;
+
     this.shader.use();
 
     this.texture.enable();
@@ -106,8 +129,23 @@ App2.prototype.draw = function () {
     this.camera.expose();
     this.projection.expose();
 
+    this.nodeA.transform.refresh();
+    this.nodeAA.transform.refresh();
+    this.nodeAAA.transform.refresh();
+    this.nodeAB.transform.refresh();
+    this.nodeABA.transform.refresh();
+
     this.context.shaderInUse.uniforms.uPlayerPos([this.camera.node.transform.tX, this.camera.node.transform.tY]);
 
+    this.context.shaderInUse.uniforms.uModelMat(false, this.nodeA.getBubbledMat());
+    this.vertArr.draw();
+    this.context.shaderInUse.uniforms.uModelMat(false, this.nodeAA.getBubbledMat());
+    this.vertArr.draw();
+    this.context.shaderInUse.uniforms.uModelMat(false, this.nodeAAA.getBubbledMat());
+    this.vertArr.draw();
+    this.context.shaderInUse.uniforms.uModelMat(false, this.nodeAB.getBubbledMat());
+    this.vertArr.draw();
+    this.context.shaderInUse.uniforms.uModelMat(false, this.nodeABA.getBubbledMat());
     this.vertArr.draw();
 };
 
