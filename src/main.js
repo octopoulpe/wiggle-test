@@ -10,6 +10,9 @@ var currentTest = null;
 
 window.onload = function () {
     document.querySelector('ul').addEventListener('click', function (event) {
+        if (event.srcElement.tagName !== 'A') {
+            return;
+        }
         if (currentTest && currentTest.teardown) {
             currentTest.teardown();
         }
