@@ -66,11 +66,11 @@ App.prototype.mot2Cb = function (name, idx, currentTs, startTs, previousTs) {
     this.camera.node.transform.rZ += 1 * (currentTs - previousTs) / 1000;
 };
 
-App.prototype.mot3Cb = function (name, idx, currentTs, startTs, previousTs) {
+App.prototype.mot3Cb = function () {
     this.mot1.running = true;
     this.mot2.running = false;
 };
-App.prototype.mot4Cb = function (name, idx, currentTs, startTs, previousTs) {
+App.prototype.mot4Cb = function () {
     this.mot1.running = false;
     this.mot2.running = true;
 };
