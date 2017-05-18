@@ -15,10 +15,14 @@ window.onload = function () {
         }
         if (currentTest && currentTest.teardown) {
             currentTest.teardown();
+            document.querySelector('#help').textContent = '';
         }
         var testId = event.srcElement.id;
         var testClass = tests[testId];
         currentTest = new testClass();
+        if (currentTest.helpBlock) {
+            document.querySelector('#help').textContent = currentTest.helpBlock;
+        }
         currentTest.setup();
     });
 };

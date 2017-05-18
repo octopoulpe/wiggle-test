@@ -7,6 +7,8 @@ var App = function () {
     this.moving = false;
 };
 
+App.prototype.helpBlock = 'Press a, z, or space';
+
 App.prototype.setup = function () {
     this.context.resizeIfNeeded();
     this.kb = new wiggle.input.KeyboardState();
