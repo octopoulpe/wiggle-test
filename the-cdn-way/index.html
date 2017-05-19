@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>wiggle</title>
+        <meta name="viewport" content="user-scalable=no"/>
+        <meta name="HandheldFriendly" content="true" />
+    </head>
+    <style>
+    body,html{
+        color:#fff;width:100%;height:100%;margin:0;padding:0
+    }
+    #game{
+        width:100%;height:100%;display:flex;justify-content:center;font-size:24pt;
+    }
+    #game canvas{
+        display:block;width:100%;height:100%;position:fixed;top:0;left:0
+    }
+    </style>
+    <body oncopy="return false;"
+          oncut="return false;"
+          onpaste="return false;"
+          unselectable="on"
+          onselectstart="return false;" >
+
+        <div id="game">
+            <canvas id="appcanvas"></canvas>
+        </div>
+    </body>
+
+    <script src="https://rawgit.com/octopoulpe/wiggle/master/dist/wiggle.js"></script>
+
+    <script>
+    'use strict';
+
+    var App = function () {
+        this.context = new wiggle.context.Context('appcanvas');
+    };
+
+    App.prototype.setup = function () {
+        this.context.resizeIfNeeded();
+
+        this.shader = new wiggle.Shader();
+        this.shader.init(
+"#version 300 es\n\
+\n\
+in vec2 aVertexPosition;\n\
+\n\
+void main(void) {\n\
+    gl_Position = vec4(aVertexPosition, 0.0, 1.0);\n\
+}\n\
+",
+"#version 300 es\n\
+\n\
+precision mediump float;\n\
+\n\
+out vec4 outputColor;\n\
+\n\
+void main(void) {\n\
+    outputColor = vec4(1.0, 1.0, 1.0, 1.0);\n\
+}\n\
+"
+        );
+        this.shader.use();
+
+        this.vertArr = new wiggle.buffers.BufferArray(
+            Object.keys(this.shader.attributes)
+        );
+        this.vertArr.buff('aVertexPosition').add([
+            [0, 1], [0, 0], [1, 0],
+        ]);
+        this.vertArr.commit();
+
+        this.draw();
+    };
+
+    App.prototype.draw = function () {
+        this.context.clear();
+
+        this.shader.use();
+
+        this.vertArr.draw();
+    };
+
+    window.onload = function () {
+        var myApp = new App();
+        myApp.setup();
+    };
+
+    </script>
+</html>
