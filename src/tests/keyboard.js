@@ -33,20 +33,12 @@ App.prototype.setup = function () {
     ]);
     this.vertArr.commit();
 
-    wiggle.motion.Motion.nowGetter = this.nowGetter.bind(this);
-
     var cwR = new wiggle.motion.Motion('cwR', this.rotate.bind(this));
     var ccwR = new wiggle.motion.Motion('ccwR', this.rotate.bind(this));
     var cycle = new wiggle.motion.Motion(
         'cycle', wiggle.motion.slowdownWrapper(this.cycle.bind(this), 2000)
     );
     this.mBounce = new wiggle.motion.Motion('bounce', this.bounce.bind(this));
-
-    var nowGetter = this.nowGetter.bind(this);
-    cwR.nowGetter = nowGetter;
-    ccwR.nowGetter = nowGetter;
-    cycle.nowGetter = nowGetter;
-    this.mBounce.nowGetter = nowGetter;
 
     cwR.stateChecker = this.kb.keyChecker('a');
     ccwR.stateChecker = this.kb.keyChecker('z');
@@ -61,10 +53,6 @@ App.prototype.setup = function () {
 
 App.prototype.next = function () {
     window.requestAnimationFrame(this.step.bind(this));
-};
-
-App.prototype.nowGetter = function () {
-    return this.nowTs;
 };
 
 App.prototype.rotate = function (name, idx, currentTs, startTs, previousTs) {
@@ -98,7 +86,7 @@ App.prototype.step = function (nowTs) {
     }
     this.nowTs = nowTs;
 
-    this.tick();
+    this.tick(nowTs);
 
     this.camera.node.transform.refresh();
 
