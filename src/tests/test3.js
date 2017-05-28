@@ -22,11 +22,11 @@ App3.prototype.setup = function () {
 
     var projection = new wiggle.Projection('uProjMat');
     this.projection = projection;
-    this.projection.ortho();
+    this.projection.perspective();
 
     var camera = new wiggle.Camera('uViewMat');
     this.camera = camera;
-    this.camera.node.transform.tZ = 0.5;
+    this.camera.node.transform.tZ = 1;
 
     this.vertArr = new wiggle.buffers.BufferArray(Object.keys(shader.attributes));
     this.vertArr.buff('aVertexPosition').add([
@@ -96,8 +96,8 @@ App3.prototype.draw = function () {
     if (this.moving) {
         console.log('moving');
         this.camera.node.transform.tY += 0.01;
-        this.camera.node.transform.refresh();
     }
+    this.camera.node.transform.refresh();
     this.shader.use();
 
     this.texture.enable();

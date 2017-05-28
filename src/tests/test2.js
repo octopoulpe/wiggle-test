@@ -113,11 +113,11 @@ App2.prototype.draw = function () {
     if (this.moving) {
         console.log('moving');
         this.camera.node.transform.tY += 0.01;
-        this.camera.node.transform.refresh();
         this.nodeABA.parent = this.nodeAA;
     } else {
         this.nodeABA.parent = this.nodeAB;
     }
+    this.camera.node.transform.refresh();
     this.nodeAB.transform.rZ += 0.001;
     this.nodeABA.transform.rZ += 0.001;
 
